@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 class _Node {
   constructor(value, next) {
     this.value = value;
@@ -69,27 +70,50 @@ class LinkedList {
     }
     previousNode.next = currNode.next;
   }
-  move(node, mark) {
-    if (mark > 0) {
-      console.log(`move=${mark}`);
-
-      let a = node;
-
-      let b = node.next;
-
-      a.next = b.next;
-
-      node = b;
-
-      node.next = a;
-
-      mark--;
-
-      this.move(node.next, mark);
-    } else {
-      return;
+  display() {
+    const arr = [];
+    let currentNode = this.head;
+    do {
+      arr.push(currentNode.value.id);
+      currentNode = currentNode.next;
+    } while (currentNode.next !== null);
+    arr.push(currentNode.value.id);
+    return arr;
+  }
+  move(ll, n) {
+    let node = ll.head;
+    while (node.next !== null && n > 0) {
+      let tmp = node.value;
+      node.value = node.next.value;
+      node.next.value = tmp;
+      node = node.next;
+      n--;
     }
   }
 }
 
 module.exports = LinkedList;
+
+// const test = new LinkedList();
+
+// test.insertLast(1);
+// test.insertLast(2);
+// test.insertLast(3);
+// test.insertLast(4);
+// test.insertLast(5);
+// test.insertLast(6);
+// test.insertLast(7);
+// test.insertLast(8);
+// test.insertLast(9);
+// test.insertLast(10);
+// test.insertLast(11);
+// console.log(test.display(test.head));
+// test.move(test, 5);
+// console.log(test.display(test.head));
+// console.log(test);
+
+// let node = ll.head;
+// let tmp = node.next.next; // 2's pointer currently pointing at 3 stored as tmp
+// node.next.next = node; // 2's next pointer now points at 1
+// this.head = node.next;
+// node.next = tmp; // 1 -> 3
